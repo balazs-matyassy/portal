@@ -1,4 +1,4 @@
-package hu.progmatic.webpage.config;
+package hu.progmatic.portal.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
