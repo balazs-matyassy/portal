@@ -22,8 +22,10 @@ public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
         // * szegmens végéig érvényes
         // -> /profil ILLESZKEDIK
         // -> /pages/public NEM illeszkedik
-        // .antMatchers("/", "/p**"): útvonal végéig érvényes
-        // -> /profil ILLESZKEDIK
+        // .antMatchers("/", "/pages/**"): útvonal végéig érvényes
+        // ** nulla vagy több könyvtárat fed le
+        // -> /pages ILLESZKEDIK
+        // -> /pages/public ILLESZKEDIK
         // -> /pages/public ILLESZKEDIK
 
         // permitAll() -> BÁRKI MEGNÉZHEZI
