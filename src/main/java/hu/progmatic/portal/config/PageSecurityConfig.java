@@ -17,11 +17,42 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // .antMatchers("/", "/pages/public")
+        // .antMatchers("/", "/p*")
+        // * szegmens végéig érvényes
+        // -> /profil ILLESZKEDIK
+        // -> /pages/public NEM illeszkedik
+        // .antMatchers("/", "/p**"): útvonal végéig érvényes
+        // -> /profil ILLESZKEDIK
+        // -> /pages/public ILLESZKEDIK
+
+        // permitAll() -> BÁRKI MEGNÉZHEZI
+        // authenticated() -> MINDEN BEJELENTKEZETT FELHASZNÁLÓ
+        // hasRole("ADMIN") -> MINDEN "ADMIN" SZEREPPEL RENDELKEZŐ FELHASZNÁLÜ
+        // denyAll() -> SENKI NEM NÉZHETI MEG
+
+        // whitelist: alapértelmezetten semmit nem szabad
+        // .anyRequest().denyAll()
+        // kivételként adunk hozzá minden olyan útvonalat,
+        // amit elérhetővé szeretnénk tenni
+        // - nyilvános oldalalakat a permitAll() segítségével
+        // - védett oldalakat a hasRole("ADMIN") segítségével
+
+        // blacklist: alapértelmezett minden szabad
+        // .anyRequest().permitAll()
+        // kivételként adjuk hozzá a védett útvonalakat
+        // .antMatcher("/admin").hasRole("ADMIN")
+
         http.authorizeRequests()
                 .antMatchers("/", "/pages/public")
                 .permitAll()
+
+                .antMatchers("/admin")
+                .hasRole("ADMIN")
+
                 .anyRequest()
                 .authenticated()
+
                 .and()
                 .formLogin();
     }
@@ -34,7 +65,12 @@ public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("user")
                 .password(encoder().encode(password))
-                .roles("USER");
+                .roles("USER")
+                .and()
+                .withUser("admin")
+                .password(encoder().encode(password))
+                .roles("USER", "ADMIN")
+        ;
     }
 
     // "factoryval" létrehozott @Component
