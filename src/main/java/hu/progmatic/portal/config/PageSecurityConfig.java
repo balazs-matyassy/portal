@@ -17,12 +17,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+        http.authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin();
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        final String password = "1234";
+        System.out.println("Hashed form of " + password + " is:\n" + encoder().encode(password));
 
+        auth.inMemoryAuthentication()
+                .withUser("user")
+                .password(encoder().encode(password))
+                .roles("USER");
     }
 
     // "factoryval" létrehozott @Component
