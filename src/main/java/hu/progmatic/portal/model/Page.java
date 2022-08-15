@@ -68,6 +68,14 @@ public class Page {
         return id;
     }
 
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
     public String getTitle() {
         return title;
     }
