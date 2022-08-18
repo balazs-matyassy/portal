@@ -46,7 +46,7 @@ public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
         // .antMatcher("/admin").hasRole("ADMIN")
 
         http.authorizeRequests()
-                .antMatchers("/", "/pages/public")
+                .antMatchers("/", "/p*/**")
                 .permitAll()
 
                 .antMatchers("/admin")
@@ -59,7 +59,7 @@ public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin();
     }
 
-    @Override
+    /* @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         final String password = "1234";
         System.out.println("Hashed form of " + password + " is:\n" + encoder().encode(password));
@@ -73,7 +73,7 @@ public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
                 .password(encoder().encode(password))
                 .roles("USER", "ADMIN")
         ;
-    }
+    } */
 
     // "factoryval" létrehozott @Component
     @Bean
