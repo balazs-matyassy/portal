@@ -25,8 +25,8 @@ public class PageUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<hu.progmatic.portal.model.User> userOptional = userRepository.findByUsername(username);
-        hu.progmatic.portal.model.User userData = userOptional.orElseThrow(() -> new UsernameNotFoundException("User not found."));
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        User userData = userOptional.orElseThrow(() -> new UsernameNotFoundException("User not found."));
 
         if (userData.isAdmin()) {
             return new org.springframework.security.core.userdetails.User(
@@ -47,7 +47,7 @@ public class PageUserDetailsService implements UserDetailsService {
             );
         }
 
-        /* return new User(
+        /* return new org.springframework.security.core.userdetails.User(
                 username,
                 encoder.encode("password"),
                 List.of(
@@ -58,7 +58,7 @@ public class PageUserDetailsService implements UserDetailsService {
 
         /* switch (username) {
             case "admin":
-                return new User(
+                return new org.springframework.security.core.userdetails.User(
                         "admin",
                         encoder.encode("password"),
                         List.of(
@@ -67,7 +67,7 @@ public class PageUserDetailsService implements UserDetailsService {
                         )
                 );
             case "user":
-                return new User(
+                return new org.springframework.security.core.userdetails.User(
                         "user",
                         encoder.encode("password"),
                         List.of(
