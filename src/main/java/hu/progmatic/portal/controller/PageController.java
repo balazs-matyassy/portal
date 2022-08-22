@@ -7,8 +7,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PageController {
@@ -72,6 +75,22 @@ public class PageController {
         model.addAttribute("loginError", true);
 
         return "login";
+    }
+
+    // https://www.baeldung.com/spring-controller-vs-restcontroller
+    // REST - representational state transfer
+    // 1. Frontend framework segítségével generáljuk a HTML-t.
+    // Angular, React, Vue...
+    // 2. M2M (pl. egy szenzor küld adatokat az alkalmazásunkank), Smart home...
+    // 3. Pl. Android alkalmazások is el tudják érni az adatokat.
+
+    // @RestControllerben nincs szükség @ResponseBody annotációra,
+    // mert az a default.
+
+    @GetMapping(value = "/pages/{slug}", produces = "application/json")
+    public @ResponseBody Page getPage(@PathVariable String slug) {
+        Optional<Page> page = pageRepository.findBySlug(slug);
+        return page.orElseThrow();
     }
 
 }
