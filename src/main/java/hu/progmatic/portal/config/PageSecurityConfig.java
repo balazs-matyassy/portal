@@ -56,7 +56,15 @@ public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
 
                 .and()
-                .formLogin();
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/", true)
+                .failureUrl("/login-error")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true);
     }
 
     /* @Override

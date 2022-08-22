@@ -26,6 +26,7 @@ public class PageController {
         System.out.println(userDetailsService.getLoggedInUser());
 
         // https://www.baeldung.com/spring-security-thymeleaf
+        // https://www.baeldung.com/spring-security-login
         return "home";
     }
 
