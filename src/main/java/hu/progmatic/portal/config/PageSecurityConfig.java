@@ -45,7 +45,23 @@ public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
         // kivételként adjuk hozzá a védett útvonalakat
         // .antMatcher("/admin").hasRole("ADMIN")
 
-        http.authorizeRequests()
+        http
+                .formLogin()
+                .permitAll()
+                .loginPage("/login")
+                .defaultSuccessUrl("/", true)
+                .failureUrl("/login-error")
+
+                .and()
+
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+
+                .and()
+
+                .authorizeRequests()
                 .antMatchers("/", "/p*/**")
                 .permitAll()
 
@@ -53,18 +69,7 @@ public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasRole("ADMIN")
 
                 .anyRequest()
-                .authenticated()
-
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/login-error")
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true);
+                .authenticated();
     }
 
     /* @Override
