@@ -3,6 +3,7 @@ package hu.progmatic.portal.service;
 import hu.progmatic.portal.model.User;
 import hu.progmatic.portal.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -83,5 +84,15 @@ public class PageUserDetailsService implements UserDetailsService {
         }
 
         throw new UsernameNotFoundException("Username not found."); */
+    }
+
+    public UserDetails getLoggedInUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails user) {
+            return user;
+        }
+
+        return null;
     }
 }

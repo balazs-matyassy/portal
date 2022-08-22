@@ -2,6 +2,8 @@ package hu.progmatic.portal.controller;
 
 import hu.progmatic.portal.model.Page;
 import hu.progmatic.portal.repository.PageRepository;
+import hu.progmatic.portal.service.PageUserDetailsService;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +14,17 @@ import java.util.List;
 public class PageController {
     private final PageRepository pageRepository;
 
-    public PageController(PageRepository pageRepository) {
+    private final PageUserDetailsService userDetailsService;
+
+    public PageController(PageRepository pageRepository, PageUserDetailsService userDetailsService) {
         this.pageRepository = pageRepository;
+        this.userDetailsService = userDetailsService;
     }
 
     @GetMapping("/")
     public String homePage() {
+        System.out.println(userDetailsService.getLoggedInUser());
+
         // https://www.baeldung.com/spring-security-thymeleaf
         return "home";
     }
