@@ -21,6 +21,13 @@
     <li sec:authorize="!isAuthenticated()">
         <a data-th-href="@{/login}">Bejelentkezés</a>
     </li>
+    <th:block sec:authorize="isAuthenticated()">
+        <li>Titkos 1.</li>
+        <li>Titkos 2.</li>
+        <li>Titkos 3.</li>
+        <li>Titkos 4.</li>
+        <li>Titkos 5.</li>
+    </th:block>
 </ul>
 <h1>Kezdőlap</h1>
 <p>Üdvözöljük az oldalunkon. :)</p>
