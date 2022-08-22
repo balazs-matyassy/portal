@@ -9,11 +9,27 @@
     <li>
         <a data-th-href="@{/}">Kezdőlap</a>
     </li>
+    <li sec:authorize="isAuthenticated()">
+        <a data-th-href="@{/profile}">Profil</a>
+    </li>
+    <li sec:authorize="hasRole('ADMIN')">
+        <a data-th-href="@{/admin}">Admin</a>
+    </li>
+    <li sec:authorize="isAuthenticated()">
+        <a data-th-href="@{/logout}">Kijelentkezés</a>
+    </li>
+    <li sec:authorize="!isAuthenticated()">
+        <a data-th-href="@{/login}">Bejelentkezés</a>
+    </li>
 </ul>
 <h1>Kezdőlap</h1>
 <p>Üdvözöljük az oldalunkon. :)</p>
 <div sec:authorize="isAuthenticated()">
     Belső felhasználóknak szánt titkos információk.
+    Authenticated username:
+    <div sec:authentication="name"></div>
+    Authenticated user roles:
+    <div sec:authentication="principal.authorities"></div>
 </div>
 <div sec:authorize="hasRole('ADMIN')">
     Még titkosabb információk.
