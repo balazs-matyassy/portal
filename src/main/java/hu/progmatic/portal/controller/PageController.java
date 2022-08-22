@@ -27,6 +27,12 @@ public class PageController {
 
         // https://www.baeldung.com/spring-security-thymeleaf
         // https://www.baeldung.com/spring-security-login
+
+        // FRAGMENTS: (html újrahasznosítása több oldalon: pl. menü, fejléc...)
+        // https://www.baeldung.com/spring-thymeleaf-fragments
+        // hierarchical: közös layout, változó tartalom
+        // https://www.thymeleaf.org/doc/articles/layouts.html
+
         return "home";
     }
 
