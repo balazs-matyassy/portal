@@ -12,5 +12,12 @@
 </ul>
 <h1>Kezdőlap</h1>
 <p>Üdvözöljük az oldalunkon. :)</p>
+<div sec:authorize="isAuthenticated()">
+    Belső felhasználóknak szánt titkos információk.
+</div>
+<div sec:authorize="hasRole('ADMIN')">
+    Még titkosabb információk.
+    Csak adminoknak.
+</div>
 </body>
 </html>

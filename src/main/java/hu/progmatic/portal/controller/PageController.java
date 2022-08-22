@@ -18,6 +18,7 @@ public class PageController {
 
     @GetMapping("/")
     public String homePage() {
+        // https://www.baeldung.com/spring-security-thymeleaf
         return "home";
     }
 
