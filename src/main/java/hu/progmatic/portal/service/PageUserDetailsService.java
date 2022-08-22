@@ -21,12 +21,18 @@ public class PageUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    // private final PasswordEncoder encoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> userOptional = userRepository.findByUsername(username);
         User userData = userOptional.orElseThrow(() -> new UsernameNotFoundException("User not found."));
+
+        /* User userData = userRepository.findByUsername(username);
+
+        if (userData == null) {
+            throw new UsernameNotFoundException("User not found.");
+        } */
 
         if (userData.isAdmin()) {
             return new org.springframework.security.core.userdetails.User(
